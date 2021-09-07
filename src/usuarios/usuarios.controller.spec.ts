@@ -17,4 +17,8 @@ describe('UsuariosController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  test('deve ter um metodo para cadastrar um novo usuario', () => {
+    expect(controller.cadastraNovoUsuario).toBeDefined()
+  })
 });
