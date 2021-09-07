@@ -1,4 +1,4 @@
-import { Body, Controller } from '@nestjs/common';
+import { BadRequestException, Body, Controller } from '@nestjs/common';
 import { NovoUsuarioDto, UsuarioCadastradoDto } from './application/dto';
 import { UsuariosService } from './usuarios.service';
 
@@ -6,7 +6,11 @@ import { UsuariosService } from './usuarios.service';
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
-  cadastraNovoUsuario(@Body() novoUsuarioDto: NovoUsuarioDto): UsuarioCadastradoDto {
-    return this.usuariosService.cadastraNovoUsuario(novoUsuarioDto)
+  cadastraNovoUsuario(@Body() novoUsuarioDto: NovoUsuarioDto): UsuarioCadastradoDto | BadRequestException {
+    try {
+      return this.usuariosService.cadastraNovoUsuario(novoUsuarioDto)
+    } catch (e) {
+      return new BadRequestException(e.message)
+    }
   }
 }
