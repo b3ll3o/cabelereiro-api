@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NovoUsuarioDto } from './application/dto';
+import { UsuariosRepository } from './infra/repositories/usuarios.repository';
+import { UsuariosController } from './usuarios.controller';
 import { UsuariosService } from './usuarios.service';
 
 const EMAIL = 'email@email.com'
@@ -20,7 +22,8 @@ describe('UsuariosService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsuariosService],
+      controllers: [UsuariosController],
+      providers: [UsuariosService, UsuariosRepository],
     }).compile();
 
     service = module.get<UsuariosService>(UsuariosService);
