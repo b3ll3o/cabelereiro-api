@@ -4,4 +4,8 @@ export class Usuario {
   get email(){
     return this._email
   }
+
+  get senha(){
+    return this._senha
+  }
 }
