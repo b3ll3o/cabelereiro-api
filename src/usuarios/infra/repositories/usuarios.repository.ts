@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Usuario } from "../../../usuarios/domain/entities/usuario";
+import { Usuario } from "../../domain/entities/usuario";
 
 @Injectable()
 export class UsuariosRepository {
