@@ -7,7 +7,10 @@ const SENHA = 'senha'
 
 class NovoUsuarioDtoFactory {
   criaNovoUsuarioValido(){
-    return new NovoUsuarioDto(EMAIL, SENHA)
+    const novoUsuario = new NovoUsuarioDto()
+    novoUsuario.email = EMAIL
+    novoUsuario.senha = SENHA
+    return novoUsuario
   }
 }
 
