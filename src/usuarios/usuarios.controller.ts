@@ -7,9 +7,9 @@ export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
   @Post()
-  cadastraNovoUsuario(@Body() novoUsuarioDto: NovoUsuarioDto): UsuarioCadastradoDto | BadRequestException {
+  async cadastraNovoUsuario(@Body() novoUsuarioDto: NovoUsuarioDto): Promise<UsuarioCadastradoDto | BadRequestException> {
     try {
-      return this.usuariosService.cadastraNovoUsuario(novoUsuarioDto)
+      return await this.usuariosService.cadastraNovoUsuario(novoUsuarioDto)
     } catch (e) {
       return new BadRequestException(e.message)
     }

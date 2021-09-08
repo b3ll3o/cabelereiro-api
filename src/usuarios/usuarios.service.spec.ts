@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NovoUsuarioDto } from './application/dto';
-import { UsuarioEntity } from './infra/entities/usuario.entity';
-import { UsuariosRepository } from './infra/repositories/usuarios.repository';
+import { Usuario } from './domain/entities/usuario.entity';
 import { UsuariosController } from './usuarios.controller';
 import { UsuariosService } from './usuarios.service';
 
@@ -25,8 +24,9 @@ describe('UsuariosService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsuariosController],
-      providers: [UsuariosService, UsuariosRepository],
-      imports: [TypeOrmModule.forFeature([UsuarioEntity])]
+      providers: [UsuariosService],
+      imports: [TypeOrmModule.forFeature([Usuario])],
+      exports: [TypeOrmModule]
     }).compile();
 
     service = module.get<UsuariosService>(UsuariosService);
@@ -37,9 +37,9 @@ describe('UsuariosService', () => {
     expect(service).toBeDefined();
   });
 
-  test('deve cadastrar um novo usuario valido.', () => {
+  test('deve cadastrar um novo usuario valido.', async () => {
     const novoUsuario = novoUsuarioFactory.criaNovoUsuarioValido()
-    const usuario = service.cadastraNovoUsuario(novoUsuario)
+    const usuario = await service.cadastraNovoUsuario(novoUsuario)
 
     expect(usuario).toBeDefined()
     expect(usuario.id).toBe(1)

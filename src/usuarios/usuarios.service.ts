@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { NovoUsuarioDto, UsuarioCadastradoDto } from './application/dto';
-import { Usuario } from './domain/entities/usuario';
-import { UsuariosRepository } from './infra/repositories/usuarios.repository';
+import { Usuario } from './domain/entities/usuario.entity';
 
 @Injectable()
 export class UsuariosService {
 
-  constructor(private usuariosRepository: UsuariosRepository) { }
+  constructor(@InjectRepository(Usuario) private repository: Repository<Usuario>) { }
 
-  cadastraNovoUsuario(novoUsuarioDto: NovoUsuarioDto): UsuarioCadastradoDto {
+  async cadastraNovoUsuario(novoUsuarioDto: NovoUsuarioDto): Promise<UsuarioCadastradoDto> {
     const { email, senha } = novoUsuarioDto
-    const novoUsuario = new Usuario(email, senha)
-    const usuario = this.usuariosRepository.cadastraNovoUsuario(novoUsuario)
+    const novoUsuario = new Usuario()
+    novoUsuario.email = email
+    novoUsuario.senha = senha
+    const usuario = await this.repository.save(novoUsuario)
     const usuarioCadastrado = new UsuarioCadastradoDto(usuario.email, usuario.id)
     return usuarioCadastrado
   }
