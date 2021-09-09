@@ -1,9 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Usuario } from './domain/entities/usuario.entity';
-import { UsuariosServiceMock } from './testes/mocks/usuario.service.mock';
-import { UsuariosController } from './usuarios.controller';
-import { UsuariosService } from './usuarios.service';
+import { UsuariosController } from '../usuarios.controller';
+import { UsuariosService } from '../usuarios.service';
+import { UsuariosServiceMock } from './mocks/usuario.service.mock';
 
 describe('UsuariosController', () => {
   let controller: UsuariosController;

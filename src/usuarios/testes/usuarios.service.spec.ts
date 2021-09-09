@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { NovoUsuarioDto, UsuarioCadastradoDto } from './application/dto';
-import { Usuario } from './domain/entities/usuario.entity';
-import { UsuariosServiceMock } from './testes/mocks/usuario.service.mock';
-import { UsuariosController } from './usuarios.controller';
-import { UsuariosService } from './usuarios.service';
+import { NovoUsuarioDto, UsuarioCadastradoDto } from '../application/dto';
+import { Usuario } from '../domain/entities/usuario.entity';
+import { UsuariosServiceMock } from './mocks/usuario.service.mock';
+import { UsuariosController } from '../usuarios.controller';
+import { UsuariosService } from '../usuarios.service';
 
 const EMAIL = 'email@email.com'
 const SENHA = 'senha'
