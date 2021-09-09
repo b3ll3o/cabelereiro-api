@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Usuario } from './domain/entities/usuario.entity';
+import { UsuariosServiceMock } from './testes/mocks/usuario.service.mock';
 import { UsuariosController } from './usuarios.controller';
 import { UsuariosService } from './usuarios.service';
 
@@ -10,10 +11,11 @@ describe('UsuariosController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsuariosController],
-      providers: [UsuariosService],
-      imports: [TypeOrmModule.forFeature([Usuario])],
-      exports: [TypeOrmModule]
-    }).compile();
+      providers: [UsuariosService]
+    })
+    .overrideProvider(UsuariosService)
+    .useClass(UsuariosServiceMock)
+    .compile();
 
     controller = module.get<UsuariosController>(UsuariosController);
   });

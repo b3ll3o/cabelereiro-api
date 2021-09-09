@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { NovoUsuarioDto } from './application/dto';
+import { NovoUsuarioDto, UsuarioCadastradoDto } from './application/dto';
 import { Usuario } from './domain/entities/usuario.entity';
+import { UsuariosServiceMock } from './testes/mocks/usuario.service.mock';
 import { UsuariosController } from './usuarios.controller';
 import { UsuariosService } from './usuarios.service';
 
@@ -17,20 +18,29 @@ class NovoUsuarioDtoFactory {
   }
 }
 
+class UsuarioCadastradoFactory {
+  criaUsuarioCadastrado(){
+    return new UsuarioCadastradoDto(EMAIL, 1)
+  }
+}
+
 describe('UsuariosService', () => {
   let service: UsuariosService;
   let novoUsuarioFactory: NovoUsuarioDtoFactory
+  let usuarioCadastradoFactory: UsuarioCadastradoFactory
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsuariosController],
-      providers: [UsuariosService],
-      imports: [TypeOrmModule.forFeature([Usuario])],
-      exports: [TypeOrmModule]
-    }).compile();
+      providers: [UsuariosService]
+    })
+    .overrideProvider(UsuariosService)
+    .useClass(UsuariosServiceMock)
+    .compile();
 
     service = module.get<UsuariosService>(UsuariosService);
     novoUsuarioFactory = new NovoUsuarioDtoFactory()
+    usuarioCadastradoFactory = new UsuarioCadastradoFactory()
   });
 
   it('should be defined', () => {
@@ -38,6 +48,7 @@ describe('UsuariosService', () => {
   });
 
   test('deve cadastrar um novo usuario valido.', async () => {
+
     const novoUsuario = novoUsuarioFactory.criaNovoUsuarioValido()
     const usuario = await service.cadastraNovoUsuario(novoUsuario)
 
