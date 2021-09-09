@@ -1,3 +1,3 @@
-export abstract class Vo{
-  constructor(public valor: any) { }
+export abstract class Vo {
+  constructor(public valor: any) {}
 }

@@ -10,7 +10,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
       database: 'db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
-   }),
+    }),
   ],
   controllers: [],
   providers: [],

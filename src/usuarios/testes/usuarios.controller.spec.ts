@@ -9,11 +9,11 @@ describe('UsuariosController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsuariosController],
-      providers: [UsuariosService]
+      providers: [UsuariosService],
     })
-    .overrideProvider(UsuariosService)
-    .useClass(UsuariosServiceMock)
-    .compile();
+      .overrideProvider(UsuariosService)
+      .useClass(UsuariosServiceMock)
+      .compile();
 
     controller = module.get<UsuariosController>(UsuariosController);
   });
@@ -23,6 +23,6 @@ describe('UsuariosController', () => {
   });
 
   test('deve ter um metodo para cadastrar um novo usuario', () => {
-    expect(controller.cadastraNovoUsuario).toBeDefined()
-  })
+    expect(controller.cadastraNovoUsuario).toBeDefined();
+  });
 });
